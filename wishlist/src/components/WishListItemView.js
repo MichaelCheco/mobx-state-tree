@@ -20,6 +20,7 @@ class WishListItemView extends Component {
 					<button onClick={this.onToggleEdit} role="img">
 						{'✏️'}
 					</button>
+					<button onClick={item.remove}>{'🙅'}</button>
 				</span>
 			</li>
 		);
