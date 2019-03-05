@@ -7,15 +7,31 @@ export const WishListItem = types
 		// image: types.optional(types.string, "")
 		image: '',
 	})
-	.actions(self => {
-		function changeName(newName) {
+	.actions(self => ({
+		changeName(newName) {
 			self.name = newName;
-		}
-		return {
-			changeName,
-		};
-	});
+		},
+		changePrice(newPrice) {
+			self.price = newPrice;
+		},
+		changeImage(newImage) {
+			self.image = newImage;
+		},
+	}));
+// .actions(self => {
+// 	function changeName(newName) {
+// 		self.name = newName;
+// 	}
+// 	return {
+// 		changeName,
+// 	}
 
-export const WishList = types.model({
-	items: types.optional(types.array(WishListItem), []),
-});
+export const WishList = types
+	.model({
+		items: types.optional(types.array(WishListItem), []),
+	})
+	.actions(self => ({
+		add(item) {
+			self.items.push(item);
+		},
+	}));

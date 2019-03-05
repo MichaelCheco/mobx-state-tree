@@ -24,3 +24,17 @@ it('can create a wishlist', () => {
 	expect(list.items.length).toBe(1);
 	expect(list.items[0].price).toBe(32.99);
 });
+
+it('can add new items', () => {
+	const list = WishList.create();
+	list.add(
+		WishListItem.create({
+			name: 'Musashi',
+			price: 50.0,
+		})
+	);
+	expect(list.items.length).toBe(1);
+	expect(list.items[0].price).toBe(50.0);
+	list.items[0].changeName('Essentialism');
+	expect(list.items[0].name).toBe('Essentialism');
+});
