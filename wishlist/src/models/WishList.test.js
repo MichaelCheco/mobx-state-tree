@@ -8,6 +8,8 @@ it('can create an instance of a model', () => {
 	});
 	expect(item.image).toBe('');
 	expect(item.price).toBe(32.99);
+	item.changeName('Fahrenheit 451');
+	expect(item.name).toBe('Fahrenheit 451');
 });
 
 it('can create a wishlist', () => {
