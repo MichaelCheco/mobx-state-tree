@@ -1,43 +1,59 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import { WishList } from './models/WishList';
-import { onSnapshot, getSnapshot } from 'mobx-state-tree';
+
+import { getSnapshot } from 'mobx-state-tree';
+
+import { Group } from './models/Group';
+
 let initialState = {
-	items: [
-		{
-			name: 'Paper',
-			price: 321.43,
-			image: '',
+	users: {
+		a342: {
+			id: 'a342',
+			name: 'Homer',
+			gender: 'm',
 		},
-		{
-			name: 'Rock',
-			price: 31.23,
-			image: '',
+		'5fc2': {
+			id: '5fc2',
+			name: 'Marge',
+			gender: 'f',
 		},
-	],
+		'663b': {
+			id: '663b',
+			name: 'Bart',
+			gender: 'm',
+		},
+		'65aa': {
+			id: '65aa',
+			name: 'Maggie',
+			gender: 'f',
+		},
+		ba32: {
+			id: 'ba32',
+			name: 'Lisa',
+			gender: 'f',
+		},
+	},
 };
-// if (localStorage.getItem('wishlistapp')) {
-// 	const json = JSON.parse(localStorage.getItem('wishlistapp'));
-// 	if (WishList.is(json)) initialState = json;
-// }
-let wishList = WishList.create(initialState);
-// onSnapshot(wishList, snapshot => {
-// 	localStorage.setItem('wishlistapp', JSON.stringify(snapshot));
-// });
+
+let group = Group.create(initialState);
+
 function renderApp() {
-	ReactDOM.render(<App wishList={wishList} />, document.getElementById('root'));
+	ReactDOM.render(<App group={group} />, document.getElementById('root'));
 }
 
 renderApp();
 
 if (module.hot) {
 	module.hot.accept(['./components/App'], () => {
+		// new components
 		renderApp();
 	});
-	module.hot.accept(['./components/App'], () => {
-		const snapshot = getSnapshot(wishList);
-		wishList = wishList.create(snapshot);
+
+	module.hot.accept(['./models/Group'], () => {
+		// new model definitions
+		const snapshot = getSnapshot(group);
+		group = Group.create(snapshot);
 		renderApp();
 	});
 }
